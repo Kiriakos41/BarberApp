@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.NavBarIsVisible="False"
+             x:Class="App1.Views.RegisterPage">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="1" Margin="0,0,0,-40" BorderColor="#1C375C" HasShadow="True"  CornerRadius="50" HeightRequest="700">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="20" Padding="20,50,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"  Text="Εγγραφή!" FontSize="24" FontAttributes="Bold" TextColor="#1C375C" HorizontalOptions="CenterAndExpand"></Label>
+                    <Label Grid.Row="1" Margin="0,-15,0,0" Text="Κάνε εγγραφή για να κλείσεις ραντεβού!" TextColor="#1C375C"  HorizontalOptions="CenterAndExpand"></Label>
+                    <inputLayout:SfTextInputLayout Hint="Όνομα" Grid.Row="4" ContainerType="Outlined">
+                        <Entry Grid.Row="4" Margin="0,20,0,0" PlaceholderColor="Black" TextColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="UserNewName"/>
+                    </inputLayout:SfTextInputLayout>
+                    <inputLayout:SfTextInputLayout Hint="Τηλέφωνο" Grid.Row="5" ContainerType="Outlined">
+                        <Entry Grid.Row="5" Margin="0,20,0,0" PlaceholderColor="Black" TextColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="UserNewPhone"/>
+                    </inputLayout:SfTextInputLayout>
+                    <inputLayout:SfTextInputLayout Hint="Email" Grid.Row="2" ContainerType="Outlined">
+                        <Entry Grid.Row="2" Margin="0,20,0,0" PlaceholderColor="Black" TextColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="UserNewEmail"/>
+                    </inputLayout:SfTextInputLayout>
+                    <inputLayout:SfTextInputLayout Hint="Κωδικός" Grid.Row="3" ContainerType="Outlined">
+                        <Entry Grid.Row="3" IsPassword="True" PlaceholderColor="Black"  TextColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="UserNewPassword" />
+                    </inputLayout:SfTextInputLayout>
+                    <StackLayout Grid.Row="6" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Button Text="Προσθήκη Εικόνας" FontSize="18" CornerRadius="10" BackgroundColor="#1C375C" Clicked="Button_Clicked"/>
+                        <Image Source="mainbarber" HeightRequest="80" WidthRequest="80" x:Name="imgChoosed"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="7" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Button Text="Εγγραφή" BackgroundColor="#1C375C"  Clicked="signupbutton_Clicked" x:Name="signupbutton" FontSize="18" HeightRequest="60" />
+                        <Button Grid.Row="7" Text="Πίσω" BackgroundColor="#1C375C"  FontSize="18" Command="{Binding GoBack}"/>
+                    </StackLayout>
+                    
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

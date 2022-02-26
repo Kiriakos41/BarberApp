@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:App1.ViewModels"
+             x:Class="App1.Views.AboutPage"
+             Shell.NavBarIsVisible="True"
+             Title="Ραντεβού">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding Items}" ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame HasShadow="True" CornerRadius="15" Margin="20"
+                               HeightRequest="250" HorizontalOptions="Center" VerticalOptions="Center">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                        <Image Source="user" HeightRequest="16"/>
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="13" TextColor="Black"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                    <Frame CornerRadius="20"  Padding="0" IsClippedToBounds="True">
+                                        <Image Source="haircut" Aspect="AspectFill" 
+                                       HeightRequest="150" WidthRequest="150"/>
+                                    </Frame>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="calendar"/>
+                                        <Label Text="{Binding Created,StringFormat='{0:d /  MMM / HH:mm}'}" FontAttributes="Bold" FontSize="16" TextColor="Black"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="mobile"/>
+                                        <Label Text="{Binding Phone}" FontAttributes="Bold" FontSize="16" TextColor="Black"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:AboutViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

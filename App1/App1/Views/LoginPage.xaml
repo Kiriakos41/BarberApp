@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.NavBarIsVisible="False"
+             x:Class="App1.Views.LoginPage">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Margin="0,30" Source="MainBarber" Aspect="AspectFit" HeightRequest="180" WidthRequest="80"/>
+            <Frame Grid.Row="1" Margin="0,0,0,-40" BorderColor="#1C375C" HasShadow="True"  CornerRadius="50" HeightRequest="700">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="20" Padding="20,50,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"  Text="Καλωσόρισες!" FontSize="24" FontAttributes="Bold" TextColor="#1C375C" HorizontalOptions="CenterAndExpand"></Label>
+                    <Label Grid.Row="1" Margin="0,-15,0,0" Text="Συνδέσου για να κλείσεις ραντεβού!" TextColor="#1C375C"  HorizontalOptions="CenterAndExpand"></Label>
+                    <inputLayout:SfTextInputLayout Hint="Email" Grid.Row="2" ContainerType="Outlined">
+                        <Entry Text="kiriakos41@outlook.com" Grid.Row="2" Margin="0,20,0,0" TextColor="Black"  PlaceholderColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  x:Name="UserLoginEmail"/>
+                    </inputLayout:SfTextInputLayout>
+                    <inputLayout:SfTextInputLayout Hint="Κωδικός" Grid.Row="3" ContainerType="Outlined">
+                        <Entry Grid.Row="3" Text="Ww01012001" IsPassword="True" TextColor="Black" PlaceholderColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="UserLoginPassword"/>
+                    </inputLayout:SfTextInputLayout>
+                    <Button Grid.Row="4" Text="Σύνδεση" BackgroundColor="#1C375C" CornerRadius="20" x:Name="loginbutton" Clicked="loginbutton_Clicked"/>
+                    <Label Grid.Row="5" Text="Ξέχασα τον κωδικό μου" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="Black" />
+                    <Label Grid.Row="6" Text="Δέν έχεις λογαριασμό; πάτα εδώ!" HorizontalOptions="CenterAndExpand" TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Register}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
