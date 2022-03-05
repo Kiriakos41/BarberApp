@@ -2,15 +2,9 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:App1.Views"
+       xmlns:vm="clr-namespace:App1.ViewModels"
        Title="App1"
        x:Class="App1.AppShell">
-
-    <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-    
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
-
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -73,7 +67,7 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellItem FlyoutItemIsVisible="False" >
+    <ShellItem FlyoutItemIsVisible="False">
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </ShellItem>
     <ShellItem  FlyoutItemIsVisible="False">

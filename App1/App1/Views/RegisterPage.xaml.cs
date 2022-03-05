@@ -32,6 +32,8 @@ namespace App1.Views
                 var auth = await authProvider.CreateUserWithEmailAndPasswordAsync(UserNewEmail.Text, UserNewPassword.Text);
                 string gettoken = auth.FirebaseToken;
                 var content = await auth.GetFreshAuthAsync();
+                Preferences.Set("UserID", content.User.LocalId);
+                var p = Preferences.Get("UserID", "");
 
                 var fb = new FireBaseAppHelper();
                 await fb.AddPerson(content.User.LocalId, UserNewName.Text, UserNewEmail.Text, UserNewPhone.Text, ImageString);

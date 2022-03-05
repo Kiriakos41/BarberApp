@@ -1,4 +1,5 @@
 ﻿using App1.Helpers;
+using App1.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,19 +16,23 @@ namespace App1.Views
     public partial class ProfilePage : ContentPage
     {
         private string _preferenceImage;
+        ProfileViewModel pr;
         public ProfilePage()
         {
             InitializeComponent();
+            BindingContext = pr =  new ProfileViewModel();
         }
         protected override void OnAppearing()
         {
+            pr.LoadPerson();
             base.OnAppearing();
             _preferenceImage = Preferences.Get("Image", "");
             if (!string.IsNullOrEmpty(_preferenceImage))
             {
                 Stream stream = new MemoryStream(Convert.FromBase64String(_preferenceImage));
                 ProfileImage.Source = ImageSource.FromStream(() => { return stream; });
-            } else
+            }
+            else
             {
                 CheckUserStats();
             }
@@ -38,10 +43,9 @@ namespace App1.Views
             var personId = Preferences.Get("UserID", "");
             var t = await fb.GetPerson(personId);
             var img = Convert.FromBase64String(t.Image);
-            Image image = new Image();
             Stream stream = new MemoryStream(img);
             ProfileImage.Source = ImageSource.FromStream(() => { return stream; });
-            Preferences.Set("Image", t.Image );
+            Preferences.Set("Image", t.Image);
         }
     }
 }
