@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using System.Linq;
 using System;
 using App1.Helpers;
+using System.IO;
 
 namespace App1.ViewModels
 {
@@ -20,15 +20,14 @@ namespace App1.ViewModels
             var persons = await fb.GetAllPersons();
             if (persons.Count == 0)
             {
-                await fb.AddPerson("1", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 4, 30, 0), "");
-                await fb.AddPerson("2", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 6, 30, 0), "");
-                await fb.AddPerson("3", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 30, 0), "");
+                await fb.AddPerson("1", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 4, 30, 0), "", "haircut");
+                await fb.AddPerson("2", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 6, 30, 0), "", "haircut");
+                await fb.AddPerson("3", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 30, 0), "", "haircut");
                 foreach (var item in persons)
                 {
                     if (item.Name == "")
                     {
                         item.Name = "ΑΝΟΙΧΤΗ ΘΕΣΗ";
-                        item.Image = "haircut";
                         item.Phone = "Barber Phone";
                     }
                     Items.Add(item);
@@ -50,6 +49,16 @@ namespace App1.ViewModels
             {
                 foreach (var person in persons)
                 {
+                    if (person.Image != "haircut")
+                    {
+                        var img = Convert.FromBase64String(person.Image);
+                        Stream stream = new MemoryStream(img);
+                        person.ImageByte = ImageSource.FromStream(() => { return stream; });
+                    }
+                    else
+                    {
+                        person.Image = "haircut";
+                    }
                     Items.Add(person);
                 }
             }
@@ -76,13 +85,13 @@ namespace App1.ViewModels
             var fb = new FireBaseAppHelper();
             var personId = Preferences.Get("UserID", "");
             var t = await fb.GetPerson(personId);
-
             if (item.Name == "ΑΝΟΙΧΤΗ ΘΕΣΗ")
             {
+                item.Image = t.Image;
                 item.Name = t.Name;
                 item.Phone = t.Phone;
                 var tb = new FireBaseAppointmentHelper();
-                await tb.UpdatePerson(item.AppId, item.Name, item.Phone, item.Created);
+                await tb.UpdatePerson(item.AppId, item.Name, item.Phone, item.Created, item.Image);
                 LoadItems();
             };
         }

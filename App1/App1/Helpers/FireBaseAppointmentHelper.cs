@@ -25,14 +25,15 @@ namespace App1.Helpers
                     AppId = item.Object.AppId,
                     Created = item.Object.Created,
                     Phone = item.Object.Phone,
+                    Image = item.Object.Image
                 }).ToList();
         }
 
-        public async Task AddPerson(string personId, string name, DateTime Created, string phone)
+        public async Task AddPerson(string personId, string name, DateTime Created, string phone, string image)
         {
             await firebase
                 .Child("Appointment")
-                .PostAsync(new Appointment() { AppId = personId, Name = name, Created = Created, Phone = phone});
+                .PostAsync(new Appointment() { AppId = personId, Name = name, Created = Created, Phone = phone, Image = image });
         }
 
         public async Task<Appointment> GetPerson(string userid)
@@ -44,7 +45,7 @@ namespace App1.Helpers
             return allAppointment.Where(a => a.AppId == userid).FirstOrDefault();
         }
 
-        public async Task UpdatePerson(string userid, string name, string phone, DateTime Created)
+        public async Task UpdatePerson(string userid, string name, string phone, DateTime Created , string image)
         {
             var toUpdatePerson = (await firebase
                 .Child("Appointment")
@@ -53,7 +54,7 @@ namespace App1.Helpers
             await firebase
                 .Child("Appointment")
                 .Child(toUpdatePerson.Key)
-                .PutAsync(new Appointment() { AppId = userid, Name = name, Phone = phone, Created = Created});
+                .PutAsync(new Appointment() { AppId = userid, Name = name, Phone = phone, Created = Created, Image = image});
         }
 
         public async Task DeletePerson(string userid)

@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1.ViewModels"
+             xmlns:model="clr-namespace:App1.Models"
              x:Class="App1.Views.AboutPage"
              Shell.NavBarIsVisible="True"
              Title="Ραντεβού">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <model:Base64ToImageSource x:Key="Base64ToImageSource" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <CollectionView ItemsSource="{Binding Items}" ItemsLayout="VerticalGrid, 2">
@@ -20,7 +26,7 @@
                                        HorizontalOptions="Center" VerticalOptions="Center"/>
                                     </StackLayout>
                                     <Frame CornerRadius="20"  Padding="0" IsClippedToBounds="True">
-                                        <Image Source="haircut" Aspect="AspectFill" 
+                                        <Image  Source="{Binding ImageByte}" Aspect="AspectFill" 
                                        HeightRequest="150" WidthRequest="150"/>
                                     </Frame>
                                     <StackLayout Orientation="Horizontal">
