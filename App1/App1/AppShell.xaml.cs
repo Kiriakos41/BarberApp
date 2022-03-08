@@ -1,4 +1,5 @@
-﻿using App1.ViewModels;
+﻿using App1.Helpers;
+using App1.ViewModels;
 using App1.Views;
 using System;
 using Xamarin.Essentials;
@@ -10,6 +11,19 @@ namespace App1
     {
         public AppShell()
         {
+            MessagingCenter.Subscribe<App, string>(App.Current, "Admin", (snd, arg) =>
+            {
+                Device.BeginInvokeOnMainThread(() => {
+                    Rantebou.IsVisible = true;
+                });
+            });
+            MessagingCenter.Subscribe<App, string>(App.Current, "User", (snd, arg) =>
+            {
+                Device.BeginInvokeOnMainThread(() => {
+                    Rantebou.IsVisible = false;
+                });
+            });
+
             InitializeComponent();
             Routing.RegisterRoute("//RegisterPage", typeof(RegisterPage));
             Routing.RegisterRoute("//LoginPage", typeof(LoginPage));
@@ -23,6 +37,7 @@ namespace App1
             Preferences.Remove("Image");
             Shell.Current.FlyoutIsPresented = false;
         }
+
 
     }
 }

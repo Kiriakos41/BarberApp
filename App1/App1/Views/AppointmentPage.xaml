@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:sfTimePicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.AppointmentPage"
+             Title="Δημιουγία Ραντεβού">
+    <ContentPage.Content>
+        <StackLayout Margin="25">
+            <inputLayout:SfTextInputLayout Hint="Μέρα - Μήνας" LeadingViewPosition="Inside" >
+                <DatePicker TextColor="Black" Date="{Binding DayMonth}"/>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="appointment"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+            <inputLayout:SfTextInputLayout Hint="Ώρα"  LeadingViewPosition="Inside" >
+                <TimePicker TextColor="Black" Time="{Binding Time}"/>
+                <inputLayout:SfTextInputLayout.LeadingView>
+                    <Image Source="appointment"/>
+                </inputLayout:SfTextInputLayout.LeadingView>
+            </inputLayout:SfTextInputLayout>
+
+            <Button CornerRadius="20" 
+                    Text="Προσθήκη Ραντεβού" Command="{Binding Save}" BackgroundColor="#202020" TextColor="White"/>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

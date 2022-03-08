@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using System;
 using App1.Helpers;
 using System.IO;
+using System.Linq;
 
 namespace App1.ViewModels
 {
@@ -12,28 +13,6 @@ namespace App1.ViewModels
     {
         public ObservableCollection<Appointment> Items { get; set; } = new ObservableCollection<Appointment>();
         public Command<Appointment> ItemTapped { get; }
-
-        public async void OnAppearing()
-        {
-            Items.Clear();
-            var fb = new FireBaseAppointmentHelper();
-            var persons = await fb.GetAllPersons();
-            if (persons.Count == 0)
-            {
-                await fb.AddPerson("1", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 4, 30, 0), "", "haircut");
-                await fb.AddPerson("2", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 6, 30, 0), "", "haircut");
-                await fb.AddPerson("3", "", new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 30, 0), "", "haircut");
-                foreach (var item in persons)
-                {
-                    if (item.Name == "")
-                    {
-                        item.Name = "ΑΝΟΙΧΤΗ ΘΕΣΗ";
-                        item.Phone = "Barber Phone";
-                    }
-                    Items.Add(item);
-                }
-            }
-        }
 
         public AboutViewModel()
         {
@@ -45,34 +24,51 @@ namespace App1.ViewModels
             var fb = new FireBaseAppointmentHelper();
             var persons = await fb.GetAllPersons();
             var personId = Preferences.Get("UserID", "");
+            var b = new FireBaseAppHelper();
+            var pr = Preferences.Get("UserID", "");
+            var t = await b.GetPerson(pr);
             if (personId == "xli4nmKr66NPDeKIvkqF6qBrbVL2")
             {
                 foreach (var person in persons)
                 {
-                    if (person.Image != "haircut")
+                    if (person.Created >= DateTime.Now)
                     {
-                        var img = Convert.FromBase64String(person.Image);
-                        Stream stream = new MemoryStream(img);
-                        person.ImageByte = ImageSource.FromStream(() => { return stream; });
+                        if (person.Image != "haircut")
+                        {
+                            var img = Convert.FromBase64String(person.Image);
+                            Stream stream = new MemoryStream(img);
+                            person.ImageByte = ImageSource.FromStream(() => { return stream; });
+                        }
+                        Items.Add(person);
                     }
-                    else
-                    {
-                        person.Image = "haircut";
-                    }
-                    Items.Add(person);
                 }
             }
             else
             {
                 foreach (var item in persons)
                 {
-                    if (item.Name == "")
+                    bool ok = false;
+                    if (item.Name == t.Name && item.Created >= DateTime.Now)
                     {
-                        item.Name = "ΑΝΟΙΧΤΗ ΘΕΣΗ";
-                        item.Image = "haircut";
-                        item.Phone = "Barber Phone";
-
+                        var img = Convert.FromBase64String(item.Image);
+                        Stream stream = new MemoryStream(img);
+                        item.ImageByte = ImageSource.FromStream(() => { return stream; });
                         Items.Add(item);
+                        ok = true;
+                    }
+                    else if (ok)
+                    {
+                        if (item.Created >= DateTime.Now)
+                        {
+                            if (item.Name == "")
+                            {
+                                item.Name = "ΑΝΟΙΧΤΗ ΘΕΣΗ";
+                                item.Image = "haircut";
+                                item.Phone = "Barber Phone";
+
+                                Items.Add(item);
+                            }
+                        }
                     }
                 }
             }

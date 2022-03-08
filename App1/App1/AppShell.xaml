@@ -79,6 +79,9 @@
     <FlyoutItem Title="Λογαριασμός" Icon="user">
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
     </FlyoutItem>
+    <ShellItem Title="Δημιουργία Ραντεβού" Icon="appointment" x:Name="Rantebou">
+        <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:AppointmentPage}" />
+    </ShellItem>
 
     <MenuItem Text="Αποσύνδεση" IconImageSource="Logout"  StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
     </MenuItem>
